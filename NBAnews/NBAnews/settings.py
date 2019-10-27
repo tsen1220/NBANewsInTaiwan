@@ -38,7 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'NBA'
+    'NBA',
+    # Django-rest_framework (建立restfulAPI)
+    'rest_framework',
+
+    # 同源政策處理
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +125,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# REST_FRAMEWORK設定 此將其設定為任何API的操作皆可處理
+REST_FRAMEWORK = {
+
+    'DEFAULT_PERMISSION_CLASSES': [
+
+        'rest_framework.permissions.AllowAny',
+    ]
+}
+
+
+#  同源政策處理
+CORS_ORIGIN_ALLOW_ALL = True
