@@ -1,13 +1,13 @@
 from .serializers import ArticleSerializer
-from main.models import news
+from main.models import imgnews
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 
 class ArticleListView(ListCreateAPIView):
-    queryset = news.objects.all()
+    queryset = imgnews.objects.all()
     serializer_class = ArticleSerializer
 
 
 class ArticleDetailView(RetrieveUpdateDestroyAPIView):
-    queryset = news.objects.all()
+    queryset = imgnews.objects.all()
     serializer_class = ArticleSerializer

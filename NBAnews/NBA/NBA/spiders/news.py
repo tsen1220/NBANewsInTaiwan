@@ -1,6 +1,6 @@
 import scrapy
 import re
-# 轉為Json
+#
 from NBA.items import NbaItem
 
 
@@ -39,11 +39,14 @@ class Nba(scrapy.Spider):
         content = ''.join(content)
         time = response.xpath(
             '//div [@class="shareBar__info"]/div[@class="shareBar__info--author"]/span/text()').extract()
-
+        img = response.xpath(
+            '//div[@id="story_body_content"]/span/p/figure/a/img/@data-src'
+        ).extract()
         print(
             '----------------------------------------------------------------------------')
 
         item['title'] = title[0]
         item['content'] = content
         item['time'] = time[0]
+        item['img'] = img[0]
         yield item

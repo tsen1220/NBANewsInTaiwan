@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from main.models import news
+from main.models import imgnews
 
 # 使用rest_framework 建立RESTful API
 # 建立API的格式
@@ -10,5 +10,5 @@ from main.models import news
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = news
-        fields = ('id', 'title', 'content', 'time')
+        model = imgnews
+        fields = ('id', 'title', 'content', 'time', 'img')

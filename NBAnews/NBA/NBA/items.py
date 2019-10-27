@@ -11,13 +11,13 @@ import scrapy
 from scrapy_djangoitem import DjangoItem
 
 # Django設定的model
-from main.models import news
+from main.models import imgnews
 
 # 爬蟲數據會依django model格式 設定
 
 
 class NbaItem(DjangoItem):
-    django_model = news
+    django_model = imgnews
 
     # # 輸出json檔格式
     # class NbaItem(scrapy.Item):
