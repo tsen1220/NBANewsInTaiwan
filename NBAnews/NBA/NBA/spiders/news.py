@@ -24,7 +24,7 @@ class Nba(scrapy.Spider):
     allowed_domains = ['nba.udn.com']
     # crawl urls(req)
     start_urls = [
-        'https://nba.udn.com/nba/cate/6754/-1/newest/{}'.format(i) for i in range(1, 5)]
+        'https://nba.udn.com/nba/cate/6754/-1/newest/{}'.format(i) for i in range(1, 3)]
 
     def parse(self, response):
         # xpath
