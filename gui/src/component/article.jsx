@@ -35,6 +35,8 @@ const Article = props => {
           <br />
           <br />
           {item.content.slice(0, 200) + "......."}
+
+          <a href={"/news/" + item.id}>More</a>
         </List.Item>
       )}
     />

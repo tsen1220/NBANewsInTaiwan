@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Card } from "antd";
-
+import { Link, withRouter } from "react-router-dom";
 class Home extends React.Component {
   state = {
     article1: {},
@@ -34,7 +34,10 @@ class Home extends React.Component {
           cover={<img alt="" src={this.state.article1.img} />}
         >
           <div className="title" style={{ fontSize: 30 }}>
-            {this.state.article1.title}
+            <Link to={"/news/" + this.state.article1.id}>
+              {" "}
+              {this.state.article1.title}
+            </Link>
           </div>
           <br />
         </Card>
@@ -44,7 +47,9 @@ class Home extends React.Component {
           cover={<img alt="" src={this.state.article2.img} />}
         >
           <div className="title" style={{ fontSize: 30 }}>
-            {this.state.article2.title}
+            <Link to={"/news/" + this.state.article2.id}>
+              {this.state.article2.title}{" "}
+            </Link>
           </div>
           <br />
         </Card>
@@ -54,7 +59,9 @@ class Home extends React.Component {
           cover={<img alt="" src={this.state.article3.img} />}
         >
           <div className="title" style={{ fontSize: 30 }}>
-            {this.state.article3.title}
+            <Link to={"/news/" + this.state.article3.id}>
+              {this.state.article3.title}
+            </Link>
           </div>
           <br />
         </Card>
@@ -63,4 +70,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);
