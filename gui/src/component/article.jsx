@@ -20,7 +20,7 @@ const Article = props => {
           extra={<img width={272} alt="logo" src={item.img} />}
         >
           <List.Item.Meta
-            title={<a href={"/" + item.id}>{item.title}</a>}
+            title={<a href={"/news/" + item.id}>{item.title}</a>}
             description={item.description}
           />
           {item.time.slice(0, 4) +

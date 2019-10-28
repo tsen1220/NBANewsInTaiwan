@@ -25,7 +25,7 @@ class ArticleDetail extends React.Component {
         <Card
           hoverable
           style={{ width: 800 }}
-          cover={<img alt="NBAnews" src={this.state.article.img} />}
+          cover={<img alt="" src={this.state.article.img} />}
         >
           <div className="title" style={{ fontSize: 30 }}>
             {this.state.article.title}

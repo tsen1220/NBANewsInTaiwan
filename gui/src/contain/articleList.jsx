@@ -13,7 +13,6 @@ class ArticleList extends React.Component {
       var data = res.data.sort((a, b) => {
         return parseInt(b.time) - parseInt(a.time);
       });
-      console.log(data);
 
       this.setState({
         articles: data
@@ -24,6 +23,8 @@ class ArticleList extends React.Component {
   render() {
     return (
       <div>
+        <div style={{ fontSize: 50 }}>新聞列表</div>
+        <hr />
         <Article data={this.state.articles} />
       </div>
     );
