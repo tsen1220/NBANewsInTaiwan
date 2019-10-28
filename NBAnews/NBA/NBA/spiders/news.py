@@ -3,6 +3,12 @@ import re
 import sqlite3
 import os
 
+# Scrapy爬蟲排程
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
+from twisted.internet import reactor
+from twisted.internet.task import deferLater
+
 
 # ITEM
 from NBA.items import NbaItem
@@ -81,3 +87,29 @@ class Nba(scrapy.Spider):
                 yield item
         except Exception as err:
             print(err)
+
+
+# 爬蟲排程
+
+# 下次爬蟲 等待時間
+def sleep(self, *args, seconds):
+    return deferLater(reactor, seconds, lambda: None)
+
+
+process = CrawlerProcess(get_project_settings())
+
+# crawler endless callback
+
+
+def _crawl(result, spider):
+
+    deferred = process.crawl(spider)
+    deferred.addCallback(lambda result: print(
+        'waiting 100 seconds before restart'))
+    deferred.addCallback(sleep, seconds=100)
+    deferred.addCallback(_crawl, spider)
+    return deferred
+
+
+_crawl(None, Nba)
+process.start()
