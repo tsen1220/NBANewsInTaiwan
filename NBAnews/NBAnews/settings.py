@@ -26,7 +26,7 @@ SECRET_KEY = '3=&c^5$h&(yulsv+$b=)921=qx13s@ts8-75b&_0fw*k8sy1^w'
 DEBUG = True
 
 # 伺服器部署
-ALLOWED_HOSTS = ['140.114.79.94', 'localhost']
+ALLOWED_HOSTS = ['140.114.79.94', 'localhost','127.0.0.1']
 
 
 # Application definition
