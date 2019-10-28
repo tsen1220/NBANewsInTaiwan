@@ -142,7 +142,9 @@ REST_FRAMEWORK = {
 # #  同源政策處理
 # CORS_ORIGIN_ALLOW_ALL = True
 
+# 140.114.79.94
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
-    "http://localhost:5000"
+    "http://localhost:5000",
+    "http://140.114.79.94:5000",
 ]
