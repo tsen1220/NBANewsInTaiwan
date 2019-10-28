@@ -25,7 +25,8 @@ SECRET_KEY = '3=&c^5$h&(yulsv+$b=)921=qx13s@ts8-75b&_0fw*k8sy1^w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# 伺服器部署
+ALLOWED_HOSTS = ['140.114.79.94', 'localhost']
 
 
 # Application definition
@@ -142,9 +143,10 @@ REST_FRAMEWORK = {
 # #  同源政策處理
 # CORS_ORIGIN_ALLOW_ALL = True
 
-# 140.114.79.94
+# 同源政策 設定ip
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://localhost:5000",
     "http://140.114.79.94:5000",
+    "http://140.114.79.94:3000"
 ]
