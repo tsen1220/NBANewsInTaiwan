@@ -13,24 +13,22 @@ class ArticleDetail extends React.Component {
   componentDidMount() {
     const articleID = this.props.match.params.articleID;
     //140.114.79.94
-    axios
-      .get(`http://140.114.79.94:8000/api/article/${articleID}`)
-      .then(res => {
-        res.data["time"] =
-          res.data.time.slice(0, 4) +
-          "-" +
-          res.data.time.slice(4, 6) +
-          "-" +
-          res.data.time.slice(6, 8) +
-          " " +
-          res.data.time.slice(8, 10) +
-          ":" +
-          res.data.time.slice(10, 12);
+    axios.get(`http://127.0.0.1:8000/api/article/${articleID}`).then(res => {
+      res.data["time"] =
+        res.data.time.slice(0, 4) +
+        "-" +
+        res.data.time.slice(4, 6) +
+        "-" +
+        res.data.time.slice(6, 8) +
+        " " +
+        res.data.time.slice(8, 10) +
+        ":" +
+        res.data.time.slice(10, 12);
 
-        this.setState({
-          article: res.data
-        });
+      this.setState({
+        article: res.data
       });
+    });
   }
 
   render() {

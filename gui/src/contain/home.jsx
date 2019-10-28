@@ -12,7 +12,7 @@ class Home extends React.Component {
   //axios.get
   componentDidMount() {
     //140.114.79.94
-    axios.get(`http://140.114.79.94:8000/api/article/`).then(res => {
+    axios.get(`http://127.0.0.1:8000/api/article/`).then(res => {
       var data = res.data.sort((a, b) => {
         return parseInt(b.time) - parseInt(a.time);
       });
