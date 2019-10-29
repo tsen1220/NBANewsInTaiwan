@@ -3,6 +3,8 @@ import pymysql
 
 arr = []
 
+# 將JSNO塞入mysql
+
 
 def timeStrHandle(time):
     time = "".join(time.split('-'))
