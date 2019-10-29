@@ -8,9 +8,7 @@
 
 [DjangoServer](#DjangoServer)
 
-[登入](#登入)
-
-[註冊](#註冊)
+[React](#React)
 
 # 啟動
 
@@ -100,10 +98,25 @@ sql=SELECT title FROM main_imgnews WHERE time=%s' % time
 
 ```
 
-#DjangoServer
+# DjangoServer
 
 使用 Django 架設後端伺服器，爬蟲完的資料會經由 Scrapy 的 pipeline 將 item 進行處理，並將其送至我們設定的位置，在這裡是由 Django model 去接收，使用 SQLite 存取。
 
 接下來會將資料製作成 RESTful API ，使用 Django 的 rest Framework。
 
-<img>
+<img src='https://raw.githubusercontent.com/tsen1220/NBANewsInTaiwan/master/img/api.jpg' alt=''>
+
+# React
+
+最後我是用 React 來將頁面呈現，寫了相關的 component，使用 props 來進行資料的呈現。
+
+採用 react-router-dom 來做這頁面的 Router，並製成 SPA 介面。
+
+Router 設定為:
+
+```
+    <Route exact path="/" component={Home} />
+    <Route exact path="/news" component={ArticleList} />
+    <Route exact path="/news/:articleID" component={ArticleDetail} />
+
+```
