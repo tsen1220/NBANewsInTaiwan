@@ -10,6 +10,9 @@
 
 [React](#React)
 
+如果你喜歡，請給我一顆星，我會很感謝你。
+If you like this, please give me a star. Thank you!!
+
 # 啟動
 
 ## 前端
@@ -76,6 +79,7 @@ $ py manage.py runserver
 爬蟲細節就不多談，基本上就是散佈 spider 設定 request 的網址並解析:
 
 ```
+crawl setting:
 
 class Nba(scrapy.Spider):
     # scrapy crawl
@@ -85,10 +89,52 @@ class Nba(scrapy.Spider):
 
     # then parse the request
       def parse(self, response):
+    ....
+    ....
+    yield scrapy.Request(url=the new url, callback=self.parse_content)
+
+    def parse_content(self,response):
+    ....
+    ....
 
 ```
 
 排程部分基本上就是在執行緒中設定無窮的 callback，並設定執行緒的睡眠時間。
+
+```
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
+from twisted.internet import reactor
+from twisted.internet.task import deferLater
+
+def sleep(self, *args, seconds):
+    return deferLater(reactor, seconds, lambda: None)
+
+
+process = CrawlerProcess(get_project_settings())
+
+def _crawl(result, spider):
+
+    deferred = process.crawl(spider)
+    deferred.addCallback(lambda result: print(
+        'waiting yoursetting  before restart'))
+    deferred.addCallback(sleep, setting sleep seconds )
+    deferred.addCallback(_crawl, spider)
+    return deferred
+
+
+_crawl(None, Nba)
+process.start()
+
+```
+
+之後執行指令即可爬蟲。
+
+```
+
+scrapy crawl yourspidername
+
+```
 
 而為了避免爬取以存取的資料，會先使用 SQL 語法確認資料庫是否有存放過的資料，在這我是用時間以及標題去判斷。
 
@@ -105,6 +151,18 @@ sql=SELECT title FROM main_imgnews WHERE time=%s' % time
 接下來會將資料製作成 RESTful API ，使用 Django 的 rest Framework。
 
 <img src='https://raw.githubusercontent.com/tsen1220/NBANewsInTaiwan/master/img/api.jpg' alt=''>
+
+```
+API setting:
+
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = imgnews
+        fields = ('id', 'title', 'content', 'time', 'img')
+
+
+
+```
 
 # React
 
