@@ -36,6 +36,12 @@ Hello, you can start this project by installing React and others modules with fr
 $ npm install
 ```
 
+Run the react Server.
+
+```
+npm start
+```
+
 Back-end is Developed by django. We need to create virtual environment.
 
 ```
