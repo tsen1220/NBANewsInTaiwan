@@ -1,4 +1,16 @@
-# 目錄
+# Catalog/目錄
+
+## 英文
+
+[GettingStarted](#GettingStarted)
+
+[Crawl](#Crawl)
+
+[Django](#Django)
+
+[React](#React)
+
+## 中文
 
 [啟動](#啟動)
 
@@ -8,10 +20,210 @@
 
 [DjangoServer](#DjangoServer)
 
-[React](#React)
+[ReactFramework](#ReactFramework)
 
 如果你喜歡，請給我一顆星，我會很感謝你。
+
 If you like this, please give me a star. Thank you!!
+
+# GettingStarted
+
+## Run server
+
+Hello, you can start this project by installing React and others modules with front-end by npm.
+
+```
+$ npm install
+```
+
+Back-end is Developed by django. We need to create virtual environment.
+
+```
+$ cd env
+$ Scripts/activate (Windows)
+$ source bin/activate (MacOS/Linux)
+```
+
+Then, install the modules we require.
+
+```
+$ pip install -r requirement.txt
+```
+
+In the end, run the back-end server.
+
+```
+$ py manage.py runserver
+```
+
+<br />
+<hr />
+Hint: The info below is how to create new django project.
+
+When requirement.txt installing is finished, create the django project and app.
+
+```
+$ django-admin startproject yourprojectname
+```
+
+You need to change directory to your project name and then create the app.
+
+Please remember your django setting.
+
+```
+$ django-admin startapp yourappname
+```
+
+<hr />
+
+## Introduction
+
+This website crawls the NBA news in Taiwan via Scrapy.
+
+I loop the scrapy to get news every 100 seconds
+
+Back-end processes the data in the Django Model (ORM) , inserts it into SQLite3, designs the RESTful API for news.
+
+Front-end presents news by React and React Routers.
+
+Highlight:
+
+<img src='https://raw.githubusercontent.com/tsen1220/NBANewsInTaiwan/master/img/highlight.jpg' alt=''>
+
+News list:
+
+<img src='https://raw.githubusercontent.com/tsen1220/NBANewsInTaiwan/master/img/list.jpg' alt=''>
+
+# Crawl
+
+I use the scrapy to crawl the news.
+
+The spider settings:
+
+```
+crawl setting:
+
+class Nba(scrapy.Spider):
+    # scrapy crawl
+    name = 'nba'
+    allowed_domains = ['nba.udn.com']
+    start_urls = [req.url ]
+
+    # then parse the request
+      def parse(self, response):
+    ....
+    ....
+    yield scrapy.Request(url=the new url, callback=self.parse_content)
+
+    def parse_content(self,response):
+    ....
+    ....
+
+```
+
+This is the scrapy endless loop settings.
+
+```
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
+from twisted.internet import reactor
+from twisted.internet.task import deferLater
+
+def sleep(self, *args, seconds):
+    return deferLater(reactor, seconds, lambda: None)
+
+
+process = CrawlerProcess(get_project_settings())
+
+def _crawl(result, spider):
+
+    deferred = process.crawl(spider)
+    deferred.addCallback(lambda result: print(
+        'waiting yoursetting  before restart'))
+    deferred.addCallback(sleep, setting sleep seconds )
+    deferred.addCallback(_crawl, spider)
+    return deferred
+
+
+_crawl(None, Nba)
+process.start()
+
+```
+
+When all settings are ok, crawl the news.
+
+```
+
+scrapy crawl yourspidername
+
+```
+
+I use SQL to check the crawling news which is existed in database by time and tilte.
+
+```
+
+sql=SELECT title FROM main_imgnews WHERE time=%s' % time
+
+```
+
+# Django
+
+Django handles the item from scrapy pipeline, inserts these into SQLite3 by Django Model.
+
+Then designs the RESTful API for data.
+
+<img src='https://raw.githubusercontent.com/tsen1220/NBANewsInTaiwan/master/img/api.jpg' alt=''>
+
+```
+API setting:
+
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = imgnews
+        fields = ('id', 'title', 'content', 'time', 'img')
+
+```
+
+Scrapy_DjangoItem setting:
+
+```
+Scrapy settings:
+
+
+import django
+
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath('.')))
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'NBAnews.settings'
+django.setup()
+
+
+item:
+
+from scrapy_djangoitem import DjangoItem
+
+
+from main.models import imgnews
+
+
+class NbaItem(DjangoItem):
+    django_model = imgnews
+```
+
+# React
+
+Use react with components to present the NBA news in Taiwan.
+
+Router settings:
+
+```
+    <Route exact path="/" component={Home} />
+    <Route exact path="/news" component={ArticleList} />
+    <Route exact path="/news/:articleID" component={ArticleDetail} />
+
+```
 
 # 啟動
 
@@ -43,7 +255,8 @@ Python Django 開發。
 
 ```
 $ cd env
-$ Scripts/activate
+$ Scripts/activate (Windows)
+$ source bin/activate (MacOS/Linux)
 ```
 
 成功進入虛擬環境後進入 src 目錄，並安裝所需 modules。
@@ -136,7 +349,7 @@ scrapy crawl yourspidername
 
 ```
 
-而為了避免爬取以存取的資料，會先使用 SQL 語法確認資料庫是否有存放過的資料，在這我是用時間以及標題去判斷。
+而為了避免爬取已存取的資料，會先使用 SQL 語法確認資料庫是否有存放過的資料，在這我是用時間以及標題去判斷。
 
 ```
 
@@ -160,11 +373,37 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = imgnews
         fields = ('id', 'title', 'content', 'time', 'img')
 
-
-
 ```
 
-# React
+DjangoItem 設定好才能經由 pipeline 將資料送入 Django。
+
+```
+Scrapy settings:
+
+
+import django
+
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath('.')))
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'NBAnews.settings'
+django.setup()
+
+
+item:
+
+from scrapy_djangoitem import DjangoItem
+
+
+from main.models import imgnews
+
+
+class NbaItem(DjangoItem):
+    django_model = imgnews
+```
+
+# ReactFramework
 
 最後我是用 React 來將頁面呈現，寫了相關的 component，使用 props 來進行資料的呈現。
 
