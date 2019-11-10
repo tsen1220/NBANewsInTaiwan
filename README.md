@@ -1,6 +1,6 @@
 # Catalog/目錄
 
-## 英文
+## English
 
 [GettingStarted](#GettingStarted)
 
@@ -158,7 +158,7 @@ scrapy crawl yourspidername
 
 ```
 
-I use SQL to check the crawling news which is existed in database by time and tilte.
+I use SQL to check the crawling news which is existed in database by time and title.
 
 ```
 
