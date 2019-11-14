@@ -45,6 +45,8 @@ $ npm start
 Back-end is Developed by django. We need to create virtual environment.
 
 ```
+$ virtualenv env
+
 $ cd env
 $ Scripts/activate (Windows)
 $ source bin/activate (MacOS/Linux)
