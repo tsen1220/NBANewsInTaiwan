@@ -39,7 +39,7 @@ $ npm install
 Run the react Server.
 
 ```
-npm start
+$ npm start
 ```
 
 Back-end is Developed by django. We need to create virtual environment.
